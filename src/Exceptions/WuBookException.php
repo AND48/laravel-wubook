@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace IlGala\LaravelWubook\Exceptions;
+namespace AND48\LaravelWubook\Exceptions;
 
 /**
  * This is the WuBookException class.

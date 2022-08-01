@@ -9,24 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace IlGala\LaravelWubook;
+namespace AND48\LaravelWubook;
 
 use fXmlRpc\Client;
 use fXmlRpc\Parser\NativeParser;
 use fXmlRpc\Serializer\NativeSerializer;
-use Illuminate\Contracts\Config\Repository;
-use IlGala\LaravelWubook\Exceptions\WuBookException;
-use IlGala\LaravelWubook\Api\WuBookAuth;
-use IlGala\LaravelWubook\Api\WuBookAvailability;
-use IlGala\LaravelWubook\Api\WuBookCancellationPolicies;
-use IlGala\LaravelWubook\Api\WuBookChannelManager;
-use IlGala\LaravelWubook\Api\WuBookCorporate;
-use IlGala\LaravelWubook\Api\WuBookExtras;
-use IlGala\LaravelWubook\Api\WuBookPrices;
-use IlGala\LaravelWubook\Api\WuBookReservations;
-use IlGala\LaravelWubook\Api\WuBookRestrictions;
-use IlGala\LaravelWubook\Api\WuBookRooms;
-use IlGala\LaravelWubook\Api\WuBookTransactions;
+use AND48\LaravelWubook\Api\WuBookAvailability;
+use AND48\LaravelWubook\Api\WuBookCancellationPolicies;
+use AND48\LaravelWubook\Api\WuBookChannelManager;
+use AND48\LaravelWubook\Api\WuBookCorporate;
+use AND48\LaravelWubook\Api\WuBookExtras;
+use AND48\LaravelWubook\Api\WuBookPrices;
+use AND48\LaravelWubook\Api\WuBookReservations;
+use AND48\LaravelWubook\Api\WuBookRestrictions;
+use AND48\LaravelWubook\Api\WuBookRooms;
+use AND48\LaravelWubook\Api\WuBookTransactions;
 
 /**
  * This is the WuBook manager class.
@@ -39,7 +36,7 @@ class WuBookManager
     /**
      * @var string
      */
-    const ENDPOINT = 'https://wubook.net/xrws/';
+    const ENDPOINT = 'https://wired.wubook.net/xrws/';
 
     /**
      * @var array
@@ -47,52 +44,19 @@ class WuBookManager
     private $config;
 
     /**
-     * @var Illuminate\Cache\Repository
+     * @var fXmlRpc\Client
      */
-    private $cache;
+    private $client;
 
-    /**
-     * Create a new WuBook Instance.
-     *
-     * @param Repository $config
-     * @throws WuBookException
-     */
-    public function __construct(Repository $config)
-    {
-        // Setup credentials
-        $this->config = array_only($config->get('wubook'), ['username', 'password', 'provider_key', 'lcode']);
-
-        // Credentials check
-        if (!array_key_exists('username', $this->config) || !array_key_exists('password', $this->config) || !array_key_exists('provider_key', $this->config) || !array_key_exists('lcode', $this->lcode)) {
-            throw new WuBookException('Credentials are required!');
-        }
-
-        if (!array_key_exists('cache_token', $this->config)) {
-            $this->config['cache_token'] = false;
-        }
-
-        // Utilities
-        $this->cache = app()['cache'];
-    }
-
-    /**
-     * Auth API
-     *
-     * @return IlGala\LaravelWubook\Api\WuBookAuth
-     */
-    public function auth()
-    {
-        // Setup client
-        $client = new Client(self::ENDPOINT, null, new NativeParser(), new NativeSerializer());
-
-        return new WuBookAuth($this->config, $this->cache, $client);
+    public function __construct(){
+        $this->client = new Client(self::ENDPOINT, null, new NativeParser(), new NativeSerializer());
     }
 
     /**
      * Availability API
      *
      * @param string $token
-     * @return IlGala\LaravelWubook\Api\WuBookAvailability
+     * @return AND48\LaravelWubook\Api\WuBookAvailability
      */
     public function availability($token = null)
     {
@@ -106,7 +70,7 @@ class WuBookManager
      * Cancellation polices API
      *
      * @param string $token
-     * @return IlGala\LaravelWubook\Api\WuBookCancellationPolicies
+     * @return AND48\LaravelWubook\Api\WuBookCancellationPolicies
      */
     public function cancellation_policies($token = null)
     {
@@ -119,7 +83,7 @@ class WuBookManager
      * Channel manager API
      *
      * @param string $token
-     * @return IlGala\LaravelWubook\Api\WuBookChannelManager
+     * @return AND48\LaravelWubook\Api\WuBookChannelManager
      */
     public function channel_manager($token = null)
     {
@@ -133,7 +97,7 @@ class WuBookManager
      * Corporate function API
      *
      * @param string $token
-     * @return IlGala\LaravelWubook\Api\WuBookCorporate
+     * @return AND48\LaravelWubook\Api\WuBookCorporate
      */
     public function corporate_functions($token = null)
     {
@@ -147,7 +111,7 @@ class WuBookManager
      * Extra functions API
      *
      * @param string $token
-     * @return IlGala\LaravelWubook\Api\WuBookExtras
+     * @return AND48\LaravelWubook\Api\WuBookExtras
      */
     public function extras($token = null)
     {
@@ -161,7 +125,7 @@ class WuBookManager
      * Prices API
      *
      * @param string $token
-     * @return IlGala\LaravelWubook\Api\WuBookPrices
+     * @return AND48\LaravelWubook\Api\WuBookPrices
      */
     public function prices($token = null)
     {
@@ -175,7 +139,7 @@ class WuBookManager
      * Reservations API
      *
      * @param string $token
-     * @return IlGala\LaravelWubook\Api\WuBookPrices
+     * @return AND48\LaravelWubook\Api\WuBookPrices
      */
     public function reservations($token = null)
     {
@@ -189,7 +153,7 @@ class WuBookManager
      * Restrictions API
      *
      * @param string $token
-     * @return IlGala\LaravelWubook\Api\WuBookRestrictions
+     * @return AND48\LaravelWubook\Api\WuBookRestrictions
      */
     public function restrictions($token = null)
     {
@@ -203,21 +167,18 @@ class WuBookManager
      * Rooms API
      *
      * @param string $token
-     * @return IlGala\LaravelWubook\Api\WuBookRooms
+     * @return AND48\LaravelWubook\Api\WuBookRooms
      */
-    public function rooms($token = null)
+    public function rooms($credentials)
     {
-        // Setup client
-        $client = new Client(self::ENDPOINT, null, new NativeParser(), new NativeSerializer());
-
-        return new WuBookRooms($this->config, $this->cache, $client, $token);
+        return new WuBookRooms($credentials, $this->client);
     }
 
     /**
      * Transactions API
      *
      * @param string $token
-     * @return IlGala\LaravelWubook\Api\WuBookTransactions
+     * @return AND48\LaravelWubook\Api\WuBookTransactions
      */
     public function transactions($token = null)
     {

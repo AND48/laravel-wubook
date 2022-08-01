@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace IlGala\LaravelWubook;
+namespace AND48\LaravelWubook;
 
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Application as LaravelApplication;
@@ -31,23 +31,15 @@ class WuBookServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->setupConfig();
-    }
+        if ($this->app->runningInConsole()) {
+            // Export the migration
+            if (! class_exists('CreateWubookConfigsTable')) {
+                $this->publishes([
+                    __DIR__ . '/../database/migrations/create_wubook_configs_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_wubook_configs_table.php'),
+                ], 'migrations');
+            }
 
-    /**
-     * Setup the config.
-     *
-     * @return void
-     */
-    protected function setupConfig()
-    {
-        $source = realpath(__DIR__ . '/../config/wubook.php');
-        if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
-            $this->publishes([$source => config_path('wubook.php')]);
-        } elseif ($this->app instanceof LumenApplication) {
-            $this->app->configure('wubook');
         }
-        $this->mergeConfigFrom($source, 'wubook');
     }
 
     /**
@@ -57,23 +49,8 @@ class WuBookServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('wubook', function (Container $app) {
-            $config = $app['config'];
-            return new WuBookManager($config);
+        $this->app->bind('wubook', function($app) {
+            return new WuBookManager();
         });
-
-        $this->app->alias('wubook', WuBookManager::class);
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return string[]
-     */
-    public function provides()
-    {
-        return [
-            'wubook',
-        ];
     }
 }

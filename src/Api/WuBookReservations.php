@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace IlGala\LaravelWubook\Api;
+namespace AND48\LaravelWubook\Api;
 
-use IlGala\LaravelWubook\Api\WuBookApi;
+use AND48\LaravelWubook\Api\WuBookApi;
 
 /**
  * Description of WuBookReservations

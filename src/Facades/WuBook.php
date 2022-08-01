@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace IlGala\LaravelWubook\Facades;
+namespace AND48\LaravelWubook\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

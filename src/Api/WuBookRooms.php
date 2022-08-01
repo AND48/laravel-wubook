@@ -9,9 +9,8 @@
  * file that was distributed with this source code.
  */
 
-namespace IlGala\LaravelWubook\Api;
+namespace AND48\LaravelWubook\Api;
 
-use IlGala\LaravelWubook\Api\WuBookApi;
 
 /**
  * This is the WuBook rooms api class.
@@ -22,29 +21,14 @@ class WuBookRooms extends WuBookApi
 {
 
     /**
-     * @var string
-     */
-    private $token;
-
-    /**
-     * Create a new WuBookRooms Instance.
-     */
-    public function __construct($config, $cache, $client, $token = null)
-    {
-        parent::__construct($config, $cache, $client);
-
-        $this->token = $token;
-    }
-
-    /**
-     * http://tdocs.wubook.net/wired/rooms.html#fetch_rooms
+     * https://tdocs.wubook.net/wired/rooms.html#fetch_rooms
      *
      * @param int $ancillary 0|1
      * @return mixed
      */
-    public function fetch_rooms($ancillary = 0)
+    public function fetch_rooms(int $ancillary = 0)
     {
-        return $this->call_method($this->token, 'fetch_rooms', [$ancillary]);
+        return $this->call_method( 'fetch_rooms', ['ancillary' => $ancillary]);
     }
 
     /**
@@ -57,9 +41,9 @@ class WuBookRooms extends WuBookApi
     public function new_room($data, $virtual = false)
     {
         if ($virtual) {
-            return $this->call_method($this->token, 'new_virtual_room', $data);
+            return $this->call_method('new_virtual_room', $data);
         } else {
-            return $this->call_method($this->token, 'new_room', $data);
+            return $this->call_method( 'new_room', $data);
         }
     }
 
@@ -76,9 +60,9 @@ class WuBookRooms extends WuBookApi
     public function mod_room($data, $virtual = false)
     {
         if ($virtual) {
-            return $this->call_method($this->token, 'mod_virtual_room', $data);
+            return $this->call_method('mod_virtual_room', $data);
         } else {
-            return $this->call_method($this->token, 'mod_room', $data);
+            return $this->call_method('mod_room', $data);
         }
     }
 
@@ -92,7 +76,7 @@ class WuBookRooms extends WuBookApi
      */
     public function del_room($id)
     {
-        return $this->call_method($this->token, 'del_room', [$id]);
+        return $this->call_method('del_room', [$id]);
     }
 
     /**
@@ -103,7 +87,7 @@ class WuBookRooms extends WuBookApi
      */
     public function room_images($id)
     {
-        return $this->call_method($this->token, 'room_images', [$id]);
+        return $this->call_method('room_images', [$id]);
     }
 
     /**
@@ -116,7 +100,7 @@ class WuBookRooms extends WuBookApi
      */
     public function push_update_activation($url)
     {
-        return $this->call_method($this->token, 'push_update_activation', [$url]);
+        return $this->call_method('push_update_activation', [$url]);
     }
 
     /**
@@ -126,6 +110,6 @@ class WuBookRooms extends WuBookApi
      */
     public function push_update_url()
     {
-        return $this->call_method($this->token, 'push_update_url');
+        return $this->call_method('push_update_url');
     }
 }
