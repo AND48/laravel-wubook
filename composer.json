@@ -28,7 +28,8 @@
     },
 
     "scripts": {
-        "test": "vendor/bin/phpunit"
+        "test": "vendor/bin/phpunit",
+        "test-f": "vendor/bin/phpunit --filter"
     },
 
     "extra": {

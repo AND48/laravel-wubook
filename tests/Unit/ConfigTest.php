@@ -6,7 +6,7 @@ use AND48\LaravelWubook\Models\WubookConfig;
 use AND48\LaravelWubook\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class FilterTest extends TestCase
+class ConfigTest extends TestCase
 {
     use RefreshDatabase;
 
