@@ -11,6 +11,7 @@
 
 namespace AND48\LaravelWubook;
 
+use AND48\LaravelWubook\Api\WuBookAvailability;
 use fXmlRpc\Client;
 use fXmlRpc\Parser\NativeParser;
 use fXmlRpc\Serializer\NativeSerializer;
@@ -47,6 +48,17 @@ class WuBookManager
     public function rooms(array $credentials)
     {
         return new WuBookRooms($credentials, $this->client);
+    }
+
+    /**
+     * Rooms API
+     *
+     * @param array $token
+     * @return AND48\LaravelWubook\Api\WuBookAvailability
+     */
+    public function availability(array $credentials)
+    {
+        return new WuBookAvailability($credentials, $this->client);
     }
 
 

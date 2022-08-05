@@ -12,6 +12,7 @@
 namespace AND48\LaravelWubook\Api;
 
 use AND48\LaravelWubook\Exceptions\WuBookException;
+use Carbon\Carbon;
 use fXmlRpc\Client;
 
 /**
@@ -73,5 +74,10 @@ abstract class WuBookApi
         } catch (AbstractTransportException $error) {
             throw new WuBookException($error->getMessage(), $error->getCode(), $error);
         }
+    }
+
+    public function formatDate(Carbon $date)
+    {
+        return $date->format('d/m/Y');
     }
 }

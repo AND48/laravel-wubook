@@ -4,11 +4,9 @@ namespace AND48\LaravelWubook\Tests\Unit;
 
 use AND48\LaravelWubook\Models\WubookConfig;
 use AND48\LaravelWubook\Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ConfigTest extends TestCase
 {
-    use RefreshDatabase;
 
     /** @test */
     function a_config_has_a_data()
