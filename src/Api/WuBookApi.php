@@ -54,7 +54,7 @@ abstract class WuBookApi
      * @return array
      * @throws WuBookException
      */
-    protected function call_method($method, $data = [])
+    protected function call_method(string $method, array $data = [])
     {
         // Credentials check
         if (!array_key_exists('lcode', $this->config) || !array_key_exists('token', $this->config)) {
@@ -62,6 +62,7 @@ abstract class WuBookApi
         }
 
         $data = array_values(array_merge([$this->config['token'], $this->config['lcode']], $data));
+//        dump($data);
 
         try {
             // Retrieve response
