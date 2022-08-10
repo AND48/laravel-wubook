@@ -27,8 +27,6 @@ class PriceTest extends TestCase
         $response = $this->prices()->add_pricing_plan($name);
         $this->assertFalse($response['has_error']);
 
-        $response = $this->prices()->get_pricing_plans();
-        $this->assertFalse($response['has_error']);
         $this->assertEquals($name, $this->getPrice()['name']);
     }
 
