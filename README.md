@@ -6,7 +6,7 @@ This version of Laravel Wubook was modified by Andrii Strilchuk, is based in the
 ## Installation
 
 ```bash
-$ composer require and48/laravel-wubook
+ composer require and48/laravel-wubook
 ```
 
 ## Configuration
@@ -27,7 +27,6 @@ This will create a `wubook_configs` table in your DB that you can modify to set 
 This is the class of most interest. It is bound to the ioc container as `'wubook'` and can be accessed using the `Facades\WuBook` facade. In order to make a call to the Wired API, you may call these methods that refers to a specific area of the service. 
 
 * `availability()`
-* `channel_manager()`
 * `prices()`
 * `reservations()`
 * `restrictions()`
@@ -103,9 +102,23 @@ Laravel WuBook is licensed under [The MIT License (MIT)](LICENSE).
 
 ## Tests
 
+For running the tests you must specify environment variables `LCODE` and `TOKEN`. 
+
+For Windows:
 ```bash
-$ composer test
-$ composer test-f RoomTest
+ set LCODE=1111
+ set TOKEN=your_token
+```
+
+For Linux:
+```bash
+ LCODE=1111
+ TOKEN=your_token
+```
+
+```bash
+ composer test
+ composer test-f RoomTest
 ```
 
 It is recommended to run with empty account on the wubook.

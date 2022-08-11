@@ -13,6 +13,7 @@ namespace AND48\LaravelWubook;
 
 use AND48\LaravelWubook\Api\WuBookAvailability;
 use AND48\LaravelWubook\Api\WuBookPrices;
+use AND48\LaravelWubook\Api\WuBookReservations;
 use AND48\LaravelWubook\Api\WuBookRestrictions;
 use fXmlRpc\Client;
 use fXmlRpc\Parser\NativeParser;
@@ -85,6 +86,16 @@ class WuBookManager
         return new WuBookRestrictions($credentials, $this->client);
     }
 
+    /**
+     * Rooms API
+     *
+     * @param array $credentials
+     * @return AND48\LaravelWubook\Api\WuBookReservations
+     */
+    public function reservations(array $credentials)
+    {
+        return new WuBookReservations($credentials, $this->client);
+    }
 
     /**
      * Client getter.

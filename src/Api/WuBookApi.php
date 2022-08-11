@@ -57,14 +57,16 @@ abstract class WuBookApi
     protected function call_method(string $method, array $data = [])
     {
         // Credentials check
-        if (!array_key_exists('lcode', $this->config) || !array_key_exists('token', $this->config)) {
+        if (!array_key_exists('lcode', $this->config) || !array_key_exists('token', $this->config))
+        {
             throw new WuBookException('Credentials are required!');
         }
 
         $data = array_values(array_merge([$this->config['token'], $this->config['lcode']], $data));
 //        dump($data);
 
-        try {
+        try
+        {
             // Retrieve response
             $response = $this->client->call($method, $data);
             return [
@@ -77,8 +79,12 @@ abstract class WuBookApi
         }
     }
 
-    public function formatDate(Carbon $date)
+    public function formatDate(Carbon $date = null)
     {
+        if (!$date)
+        {
+            return '';
+        }
         return $date->format('d/m/Y');
     }
 }
