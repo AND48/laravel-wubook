@@ -1,7 +1,7 @@
 {
     "name": "and48/laravel-wubook",
     "type": "library",
-    "description": "A WuBook bridge for Laravel http://wubook.net",
+    "description": "A WuBook bridge for Laravel 8.x https://wubook.net",
     "keywords": [
         "laravel-wubook",
         "laravel-package",
