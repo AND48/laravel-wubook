@@ -16,12 +16,14 @@ class AvailabilityTest extends TestCase
     function update_avail()
     {
         $rid = $this->createRoom();
-        $response = $this->availability()->update_avail(Carbon::today(), [[
-            'id' => $rid,
-            'days' => [
-                ['avail' => 3],
-                [],
-                ['no_ota' => 0]],],
+        $response = $this->availability()->update_avail(Carbon::today(), [
+            (object)[
+                'id' => $rid,
+                'days' => [
+                    (object)['avail' => 3],
+                    (object)[],
+                    (object)['no_ota' => 0]],
+            ],
         ]);
         $this->assertFalse($response['has_error']);
 
@@ -35,11 +37,13 @@ class AvailabilityTest extends TestCase
     {
         $rid = $this->createRoom();
         $date = Carbon::tomorrow()->addDay();
-        $response = $this->availability()->update_sparse_avail([[
-            'id' => $rid,
-            'days' => [
-                ['no_ota' => 1, 'avail' => 6, 'date' => $this->availability()->formatDate($date)],
-                ],],
+        $response = $this->availability()->update_sparse_avail([
+            (object)[
+                'id' => $rid,
+                'days' => [
+                    (object)['no_ota' => 1, 'avail' => 6, 'date' => $this->availability()->formatDate($date)],
+                ],
+            ],
         ]);
         $this->assertFalse($response['has_error']);
 
