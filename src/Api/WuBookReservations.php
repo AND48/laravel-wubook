@@ -79,4 +79,16 @@ class WuBookReservations extends WuBookApi
     {
         return $this->call_method('fetch_bookings', [$this->formatDate($dfrom), $this->formatDate($dto), $oncreated, $ancillary]);
     }
+
+    /**
+     * https://tdocs.wubook.net/wired/fetch.html#fetch_booking
+     *
+     * @param int $rcode
+     * @param int $ancillary
+     * @return mixed
+     */
+    public function fetch_booking(int $rcode, int $ancillary = 0)
+    {
+        return $this->call_method('fetch_booking', [$rcode, $ancillary]);
+    }
 }
